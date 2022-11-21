@@ -98,16 +98,16 @@ end
 %等效信道集合
 %BS-UE
 %for m = 1:L.B * A.K%L.B    
-for b = 1:4
-    for k = 1:6      
+for k = 1:6
+    for b = 1:4      
 
-        P_V_P_G = [];
+        P_V_P_G = zeros(1,4);
         for i = 1:5
             P_V_P_G = P_V_P_G + P_R(1,i) * vH_matrix(:,:,i,k) * P_Phi_SUM_matrix(:,:,i) * G_matrix(:,:,b,i);
         end
-        hat_h = eval(['hH',num2str(b*k)]) + P_V_P_G;
-        eval(['hat_h',num2str(b*k), ' =hat_h']);
-        hat_h_matrix(:,:,b*k) = eval(['hat_h',num2str(b*k)]);        
+        hat_h = eval(['hH',num2str((k-1)*4+b)]) + P_V_P_G;
+        eval(['hat_h',num2str((k-1)*4+b), ' =hat_h']);
+        hat_h_matrix(:,:,(k-1)*4+b) = eval(['hat_h',num2str((k-1)*4+b)]);        
     end
 end
 
