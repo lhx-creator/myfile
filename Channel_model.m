@@ -1,4 +1,4 @@
-function [hat_h,tilde_h,tilde_f] = Channel_model(A,L,F)
+function [hH_matrix,vH_matrix,G_matrix,bar_PHI_matrix,P_matrix,hat_h_matrix] = Channel_model(A,L,F)
 
 hH_matrix = zeros(1,4,4,6);
 vH_matrix = zeros(1,10,5,6);
@@ -111,4 +111,4 @@ for k = 1:6
     end
 end
 
-
+        
