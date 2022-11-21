@@ -1,6 +1,8 @@
 %function [ ] = Follower( )
 clc,clear;
 SINR_Fenzi = zeros(1,6);
+tilde_h_matrix = zeros(1,4,4,6);
+tilde_f_matrix = zeros(4,1,4,6);
 
 %%
 %SINR
@@ -33,3 +35,18 @@ end
 
 
 %%
+for b = 1:4   
+    for k = 1:6
+        tilde_h_matrix(:,:,b,k) = hat_h_matrix(:,:,b,k);
+        tilde_f_matrix(:,:,b,k) = f_matrix(:,:,b,k);
+    end
+end
+%for i = 1:L.B * A.K
+ for i = 1:24
+    hH_matrix(:,:,i) = eval(['hH', num2str(i)]); %hH
+ end
+
+
+
+
+
