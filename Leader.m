@@ -32,3 +32,9 @@ HF = [HF,0]';
 HF_total = [HF,HF,HF,HF,HF,HF];
 HF_sigma = HF_total + A.sigma;
 
+[f_matrix] = L1_f( f_matrix, Pb_matrix, miu, hat_h_matrix, HF_sigma);
+[Pb_matrix] = L2_Pb( Pb_matrix, f_matrix, miu, A, hat_h_matrix, HF_sigma );
+
+
+
+
