@@ -7,7 +7,6 @@ cvx_begin
     variable Pb_matrix(1,4) nonnegative
     expression sum_fun
     expression cons_square_sum_f(4)%B   
-     
     for b = 1:4
         a = 0;
         
@@ -15,9 +14,8 @@ cvx_begin
             a = a + ( abs( f_matrix(:,:,b,k) ) ).^2
         end
         f_b(b) = a;
-        sum_fun = sum_fun + Pb_matrix(1,b) + miu * Pb_matrix(1,b) * f_b(b) + Pb_matrix(1,b) * A.W_bh;
-    end
-    
+        sum_fun = sum_fun + Pb_matrix(1,b) * A.W_b + miu * Pb_matrix(1,b) * f_b(b) + Pb_matrix(1,b) * A.W_bh;
+    end   
     minimize( sum_fun )
     subject to
     for k = 1:6%B

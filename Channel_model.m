@@ -1,10 +1,10 @@
-function [hH_matrix,vH_matrix,G_matrix,bar_PHI_matrix,P_matrix,hat_h_matrix] = Channel_model(A,L,F)
+function [hH_matrix,vH_matrix,G_matrix,bar_PHI_matrix,P_phi_matrix,hat_h_matrix] = Channel_model(A,L,F)
 
 hH_matrix = zeros(1,4,4,6);
 vH_matrix = zeros(1,10,5,6);
 G_matrix = zeros(10,4,4,5);
 bar_PHI_matrix = zeros(10,10,10,5);
-P_matrix = zeros(10,10,5);
+P_phi_matrix = zeros(10,10,10,5);%相移的概率三维矩阵
 hat_h_matrix = zeros(1,4,4,6);
 
 %%
@@ -62,9 +62,11 @@ for m = 1:10
         eval(['P_phi',num2str(m), ' =diag(a)']);
 end
 %for i = 1:L.B * A.K
- for i = 1:5
-    P_matrix(:,:,i) = eval(['P_phi', num2str(i)]); %P
- end
+for j = 1:5
+     for i = 1:10
+        P_phi_matrix(:,:,i,j) = eval(['P_phi', num2str(i)]); %  (10,5)的概率模型
+     end
+end
 
 %%
 %选择相移矩阵部分
