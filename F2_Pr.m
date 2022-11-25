@@ -2,17 +2,17 @@ function [ Pr_matrix ] = F2_Pr( Pr_matrix, A, fq_fun )
 a1 = 0;
 a3 = 0;
 
-cvx_begin
-    variable Pr_matrix(1,5) nonnegative;
-    expression sum_PWr(1);
-    expression sum_PPWbh(1);
-    for r = 1:5%R
+cvx_begin sdp
+    variable Pr_matrix(1,A.R);
+    expression sum_PWr;
+    expression sum_PPWbh;
+    for r = 1:A.R%R
         a1 = a1 + Pr_matrix(r) * A.W_r;
     end
     sum_PWr = a1;
-    for b = 1:4
+    for b = 1:A.B
         a2 = 0;
-        for r = 1:5
+        for r = 1:A.R
             a2 = a2 + Pr_matrix(r) * A.W_bh;
         end
         a3 = a3 + a2;
@@ -20,8 +20,9 @@ cvx_begin
     sum_PPWbh = a3;
     minimize ( ( -1 ) * fq_fun + A.alpha * sum_PWr + A.beta * sum_PPWbh )
     subject to 
-    for r = 1:5
+    for r = 1:A.R
         Pr_matrix(r) <= 1;
+        Pr_matrix(r) >= 0;
     end
-    
+cvx_end    
         

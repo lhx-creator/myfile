@@ -1,9 +1,10 @@
-function [ fq_fun ] = Fq_fun( tilde_f_matrix, tilde_h_matrix, A, gamma, Z )
+function [ fq_fun ] = Fq_fun( tilde_f_matrix, tilde_h_matrix, A, gamma)
 
-fq_fun = [];
+fq_fun = 0;
 tilde_fhH = zeros(1,6);
 tilde_fh = zeros(1,6);
 sum_fhhf = zeros(1,6);
+Z = zeros(1,6);
 
 for k = 1:6  
     for b = 1:4%B
@@ -20,32 +21,16 @@ for g = 1:6
     for k = 1:6
     sum_fhhf(g) = sum_fhhf(g) + tilde_fh(k) * tilde_fhH(k);
     end
-    sum_fhhf(g) = sum_fhhf(g) + A.sigma(g)^2;
+    sum_fhhf(g) = sum_fhhf(g) + A.sigma(7,g)^2;
 end
 
+for k = 1:6
+    Z(k) = sqrt(1 + gamma(k) ) * tilde_fh(k) / sum_fhhf(g);
+end
 
 for k = 1:6%K
     fq_fun  = fq_fun + 2 * sqrt( 1 + gamma(k) ) * real( sum ( tilde_fhH ) * Z(k) ) - ctranspose( Z(k) ) * sum_fhhf(k) * Z(k) + log2( 1 + gamma(k) ) - gamma(k);
        %取实部求和有点问题感觉
 end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+fq_fun = real(fq_fun);   
     
