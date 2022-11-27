@@ -32,12 +32,11 @@ cvx_begin
     minimize( miu * sum_fun )
     subject to
     for i = 1:A.K * A.B
-        F_matrix((i-1)*4+1:4*i,1) = f_matrix(:,:,i);
+        F_matrix((i-1)*A.Nt+1:A.Nt*i,1) = f_matrix(:,:,i);
     end
     for b = 1:A.B%B
         cons_square_sum_f(b) = 0;
         for k = 1:A.K%K       
-            %a3 = a3 + sum_square_abs( f_matrix(:,:,b,k) ) ;
             cons_square_sum_f(b) = cons_square_sum_f(b) + square_pos(norm(f_matrix(:,:,b,k), 'fro'));
         end
         cons_square_sum_f(b) <= A.W_max;  

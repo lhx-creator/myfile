@@ -11,7 +11,7 @@ cvx_begin
         for i = 1:A.Nphi%I
             P(j) = P(j) + P_phi_matrix(i,j);
         end
-        P(j) =1;
+        P(j) == 1;
     end
     for j = 1:A.R%R
         for i = 1:A.Nphi%I
