@@ -1,7 +1,7 @@
 clc,clear;
 [A] = Parameter;
-[hH_matrix,vH_matrix,G_matrix,bar_PHI_matrix,P_phi_matrix,hat_h_matrix,Pr_matrix] = Channel_model(A);
-[Pb_matrix,f_matrix,miu,fq_fun,T_initial,gamma,Z ] = Initialization( A,hat_h_matrix );
+[hH_matrix,vH_matrix,G_matrix,bar_PHI_matrix,P_phi_matrix,hat_h_matrix,Pr_matrix,f_matrix] = Channel_model(A);
+[Pb_matrix,f_matrix,miu,fq_fun,T_initial,gamma,Z ] = Initialization( A,hat_h_matrix,f_matrix );
 
 %第一次计算
 [f_matrix] = L1_f( A, f_matrix, Pb_matrix, miu, hat_h_matrix);

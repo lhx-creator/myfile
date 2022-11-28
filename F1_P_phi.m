@@ -2,7 +2,7 @@ function [P_phi_matrix] = F1_P_phi(A, P_phi_matrix, fq_fun )
 P = zeros(1,A.R);
 
 
-cvx_begin
+cvx_begin sdp
     variable P_phi_matrix(A.Nphi,A.R) ;
     expression P(A.R);
     minimize ( (-1) * fq_fun )

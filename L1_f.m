@@ -9,7 +9,7 @@ HF_sigma = zeros(A.K+1,A.K);
 %%
 % f 优化子问题
 cvx_begin 
-    variable f_matrix(A.Nt,1,A.B,A.K) complex ;
+    variable f_matrix(A.Nt,1,A.B,A.K) complex;%  
     expression square_sum_f(A.B);%B
     expression sum_fun;
     expression cons_square_sum_f(A.B);%B
@@ -17,10 +17,24 @@ cvx_begin
     expression HF(A.K+1);
     expression HF_sigma(A.K+1,A.K);
     
+%     for b = 1:A.B%B
+%         a1 = 0;
+%         for k = 1:A.K%K       
+%             a1 = a1 + square_pos(norm(f_matrix(:,:,b,k),'fro'));  %fro square_pos 表示取与零比较时的大数平方
+%         end
+%         square_sum_f(b) = a1;
+%     end
+%     for b = 1:A.B%B
+%         a2 = 0;
+%         a2 = a2 + Pb_matrix(1,b) * square_sum_f(b);
+%     end
+%     sum_fun = a2;
+    minimize( miu * sum_fun )
+    subject to
     for b = 1:A.B%B
         a1 = 0;
         for k = 1:A.K%K       
-            a1 = a1 + square_pos(norm(f_matrix(:,:,b,k), 'fro'));  %!!!得看看能不能用
+            a1 = a1 + square_pos(norm(f_matrix(:,:,b,k),'fro'));  %fro square_pos 表示取与零比较时的大数平方
         end
         square_sum_f(b) = a1;
     end
@@ -29,8 +43,8 @@ cvx_begin
         a2 = a2 + Pb_matrix(1,b) * square_sum_f(b);
     end
     sum_fun = a2;
-    minimize( miu * sum_fun )
-    subject to
+    
+ %%   
     for i = 1:A.K * A.B
         F_matrix((i-1)*A.Nt+1:A.Nt*i,1) = f_matrix(:,:,i);
     end

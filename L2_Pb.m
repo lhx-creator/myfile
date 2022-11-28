@@ -21,7 +21,7 @@ cvx_begin sdp
         a = 0;
         
         for k = 1:A.K
-            a = a + square_pos(norm(f_matrix(:,:,b,k), 'fro'));
+            a = a + square_pos(norm(f_matrix(:,:,b,k),'fro'));%
         end
         f_b(b) = a;
         sum_fun = sum_fun + Pb_matrix(1,b) * A.W_b + miu * Pb_matrix(1,b) * f_b(b) + Pb_matrix(1,b) * A.W_bh;
@@ -66,7 +66,7 @@ cvx_begin sdp
 
     for k = 1:A.K%B   
             HF_sigma(:,k) = HF + A.sigma(:,k);
-            norm(HF_sigma(:,k),2) - sqrt((A.T_min+1)/A.T_min) * real(PHF(k)) <= 0; %这里取实数会不会影响结果
+            norm(HF_sigma(:,k),'fro') - sqrt((A.T_min+1)/A.T_min) * real(PHF(k)) <= 0; %这里取实数会不会影响结果
     end
     
 cvx_end

@@ -1,4 +1,4 @@
-function [Pb_matrix,f_matrix,miu,fq_fun,T_initial,gamma,Z ] = Initialization( A,hat_h_matrix )
+function [Pb_matrix,f_matrix,miu,fq_fun,T_initial,gamma,Z ] = Initialization( A,hat_h_matrix,f_matrix )
 
 
 %%
@@ -8,18 +8,10 @@ miu = 0.5;
 
 Pb_matrix = rand(1,A.B);
 
-f_matrix = zeros(A.Nt,1,A.B,A.K);
+
 F_matrix = zeros(A.Nt * A.B * A.K,1);
 H_matrix = zeros(A.B+1,A.Nt * A.B * A.K);
 
-  
-for m = 1:A.B * A.K    
-        eval(['f',num2str(m), ' =rand(A.Nt,1)']);     %先是1-B，再是1-K
-end
-
- for i = 1:A.B * A.K
-    f_matrix(:,:,i)= eval(['f', num2str(i)]);  %改的第一处
- end
 
 for i = 1:A.B * A.K
     F_matrix((i-1)*A.Nt+1:A.Nt*i,1) = f_matrix(:,:,i);
