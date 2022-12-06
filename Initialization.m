@@ -4,7 +4,7 @@ function [Pb_matrix,f_matrix,miu,fq_fun,T_initial,gamma,Z ] = Initialization( A,
 %%
 %Leader
 %
-miu = 0.5;
+miu = 1;%
 
 Pb_matrix = rand(1,A.B);
 

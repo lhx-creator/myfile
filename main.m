@@ -17,7 +17,7 @@ fun_L = [];
 fun_F = [];
 fun_L(1) = fun_leader;
 fun_F(1) = fun_follower;
-for iter = 1:20 
+for iter = 2:20 
     
     [hat_h_matrix,fq_fun] = Iteration_fun(A,P_phi_matrix,bar_PHI_matrix,Pr_matrix,vH_matrix,G_matrix,hH_matrix,f_matrix,Pb_matrix );
     for i = 2:200

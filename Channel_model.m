@@ -38,7 +38,7 @@ end
 %% 波束成形向量初始化，平均分配
 for b = 1:A.B     
     for k = 1:A.K
-        a = rand(A.Nt,1);     %中间变量
+        a = (rand(A.Nt,1) + 1i*rand(A.Nt,1))/sqrt(2);     %中间变量
         f_matrix(:,:,b,k) = a/norm(a,'fro')*sqrt(A.W_max/A.K);
     end
 end
@@ -142,8 +142,8 @@ end
  
  %概率模型 10个
 for m = 1:A.Nphi  
-        a = rand(1,A.Nphi);
-        a = a./sum(a);
+        a = rand(1) * ones(1,A.Nphi);
+        %a = a./sum(a);
         eval(['P_phi',num2str(m), ' =diag(a)',';']);
 end
 
